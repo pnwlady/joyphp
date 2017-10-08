@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  mySQL:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=verysecret
+      - lower_case_table_names=1
+  joyphp:
+    build: ./joyphp
+    volumes:
+      - ./joyphp/src:/var/www/html
+    ports:
+      - 80:80
+    links:
+      - mySQL
+    depends_on:
+    - mySQL
